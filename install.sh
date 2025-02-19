@@ -100,11 +100,8 @@ install_kde () {
     konsole \
     dolphin \
     dolphin-plugins \
-    firefox \
-    chromium \
     filelight \
-    ark \
-    flatpak
+    ark
 
     arch-chroot /mnt pacman -S --needed --asdeps \
     ffmpegthumbs \
