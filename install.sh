@@ -13,7 +13,16 @@ ext4fs () {
     mount --mkdir "$EFI" /mnt/efi
 }
 
+ext4fs_luks () {
+    cryptsetup luksFormat "$ROOT"
+    cryptsetup --allow-discards --perf-no_read_workqueue --perf-no_write_workqueue --persistent open "$ROOT" root
+    mkfs.ext4 /dev/mapper/root
+    mount /dev/mapper/root /mnt
+    mount --mkdir "$EFI" /mnt/efi
+}
+
 ext4fs
+#ext4fs_luks
 
 pacstrap -K /mnt base linux linux-firmware vim sudo amd-ucode networkmanager
 genfstab -U /mnt >> /mnt/etc/fstab
