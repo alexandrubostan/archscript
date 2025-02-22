@@ -53,6 +53,7 @@ ROOTUUID=$(blkid -s UUID -o value "$ROOT")
 AMDGPUOC=$(printf 'amdgpu.ppfeaturemask=0x%x\n' "$(($(cat /sys/module/amdgpu/parameters/ppfeaturemask) | 0x4000))")
 mkdir -p /mnt/etc/cmdline.d
 echo "root=UUID=$ROOTUUID rw" | tee /mnt/etc/cmdline.d/root.conf > /dev/null
+#echo "rd.luks.name=$ROOTUUID=root root=/dev/mapper/root rw" | tee /mnt/etc/cmdline.d/root.conf > /dev/null
 echo "$AMDGPUOC" | tee /mnt/etc/cmdline.d/amdgpuoc.conf > /dev/null
 
 tee /mnt/etc/mkinitcpio.d/linux.preset > /dev/null << EOF
