@@ -31,7 +31,6 @@ echo '%wheel      ALL=(ALL:ALL) NOPASSWD: ALL' | tee -a /mnt/etc/sudoers > /dev/
 
 sed -e '/en_US.UTF-8/s/^#*//' -i /mnt/etc/locale.gen
 sed -e '/ro_RO.UTF-8/s/^#*//' -i /mnt/etc/locale.gen
-sed -e '/ParallelDownloads/s/^#*//' -i /mnt/etc/pacman.conf
 
 arch-chroot /mnt ln -sf /usr/share/zoneinfo/Europe/Bucharest /etc/localtime
 arch-chroot /mnt hwclock --systohc
