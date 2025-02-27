@@ -78,7 +78,7 @@ systemd_boot () {
 systemd_boot
 #efistub
 
-curl -s https://raw.githubusercontent.com/alexandrubostan/archscript/refs/heads/main/kde.txt | xargs sudo pacman -S --needed
+curl -s https://raw.githubusercontent.com/alexandrubostan/archscript/refs/heads/main/kde.txt | xargs pacman -S --needed
 
 systemctl enable sddm.service --root=/mnt
 systemctl enable fstrim.timer --root=/mnt
