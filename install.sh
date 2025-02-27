@@ -63,6 +63,16 @@ default_uki="/efi/EFI/Linux/arch-linux.efi"
 #default_options=""
 EOF
 
+tee /mnt/etc/mkinitcpio.conf > /dev/null << EOF
+MODULES=()
+BINARIES=()
+FILES=()
+HOOKS=(systemd autodetect microcode modconf keyboard block filesystems fsck)
+
+COMPRESSION="zstd"
+COMPRESSION_OPTIONS=(-v -5 --long)
+EOF
+
 efistub () {
     mkdir -p /mnt/efi/EFI/Linux
     arch-chroot /mnt mkinitcpio -p linux
