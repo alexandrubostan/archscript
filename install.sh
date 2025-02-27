@@ -24,7 +24,7 @@ ext4fs_luks () {
 ext4fs
 #ext4fs_luks
 
-pacstrap -K /mnt base linux linux-firmware vim sudo amd-ucode networkmanager
+pacstrap -K /mnt base linux linux-firmware nano sudo amd-ucode networkmanager
 
 sed -e '/en_US.UTF-8/s/^#*//' -i /mnt/etc/locale.gen
 sed -e '/ro_RO.UTF-8/s/^#*//' -i /mnt/etc/locale.gen
