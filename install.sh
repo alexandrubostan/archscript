@@ -26,8 +26,6 @@ ext4fs
 
 pacstrap -K /mnt base linux linux-firmware vim sudo amd-ucode networkmanager
 
-echo '%wheel      ALL=(ALL:ALL) NOPASSWD: ALL' | tee -a /mnt/etc/sudoers > /dev/null
-
 sed -e '/en_US.UTF-8/s/^#*//' -i /mnt/etc/locale.gen
 sed -e '/ro_RO.UTF-8/s/^#*//' -i /mnt/etc/locale.gen
 
@@ -73,6 +71,7 @@ efistub () {
     
     efibootmgr --create --disk "$DRIVE" --part "$EFIPART" --label "Arch Linux" --loader 'EFI/Linux/arch-linux.efi' --unicode
 }
+
 systemd_boot () {
     arch-chroot /mnt bootctl install
     arch-chroot /mnt mkinitcpio -p linux
