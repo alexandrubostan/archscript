@@ -42,13 +42,11 @@ tee -a /mnt/etc/hosts > /dev/null << EOF
 ::1              localhost
 EOF
 
-read -r -p "Enter hostname: " hostname
-echo "$hostname" | tee /mnt/etc/hostname > /dev/null
+echo 'archlelz' | tee /mnt/etc/hostname > /dev/null
 
 AMDGPUOC=$(printf 'amdgpu.ppfeaturemask=0x%x\n' "$(($(cat /sys/module/amdgpu/parameters/ppfeaturemask) | 0x4000))")
-mkdir -p /mnt/etc/cmdline.d
-echo "rw" | tee /mnt/etc/cmdline.d/root.conf > /dev/null
-echo "$AMDGPUOC" | tee /mnt/etc/cmdline.d/amdgpuoc.conf > /dev/null
+echo "rw $AMDGPUOC" | tee /mnt/etc/kernel/cmdline > /dev/null
+
 echo '/dev/gpt-auto-root  /  ext4  defaults,noatime  0  1' | tee /mnt/etc/fstab > /dev/null
 
 tee /mnt/etc/mkinitcpio.d/linux.preset > /dev/null << EOF
@@ -69,7 +67,7 @@ efistub () {
     mkdir -p /mnt/efi/EFI/Linux
     arch-chroot /mnt mkinitcpio -p linux
     
-    efibootmgr --create --disk "$DRIVE" --part "$EFIPART" --label "Arch Linux" --loader 'EFI/Linux/arch-linux.efi' --unicode
+    efibootmgr -c -d "$DRIVE" -p "$EFIPART" -l 'EFI/Linux/arch-linux.efi' -u
 }
 
 systemd_boot () {
@@ -124,6 +122,5 @@ systemctl enable fstrim.timer --root=/mnt
 systemctl enable NetworkManager.service --root=/mnt
 
 arch-chroot /mnt passwd
-read -r -p "Enter username: " user
-arch-chroot /mnt useradd -m -G wheel "$user"
-arch-chroot /mnt passwd "$user"
+arch-chroot /mnt useradd -m -G wheel alexb
+arch-chroot /mnt passwd alexb
