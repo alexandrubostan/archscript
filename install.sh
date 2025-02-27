@@ -78,46 +78,9 @@ systemd_boot () {
 systemd_boot
 #efistub
 
-install_kde () {
-    arch-chroot /mnt pacman -S --needed \
-    breeze-gtk \
-    drkonqi \
-    kde-gtk-config \
-    kdeplasma-addons \
-    kgamma \
-    kinfocenter \
-    kscreen \
-    ksshaskpass \
-    kwallet-pam \
-    kwrited \
-    plasma-desktop \
-    plasma-disks \
-    plasma-nm \
-    plasma-pa \
-    plasma-systemmonitor \
-    powerdevil \
-    power-profiles-daemon \
-    sddm-kcm \
-    spectacle \
-    xdg-desktop-portal-kde \
-    xdg-desktop-portal-gtk \
-    konsole \
-    dolphin \
-    dolphin-plugins \
-    filelight \
-    ark
+curl -s https://raw.githubusercontent.com/alexandrubostan/archscript/refs/heads/main/kde.txt | xargs sudo pacman -S --needed
 
-    arch-chroot /mnt pacman -S --needed --asdeps \
-    ffmpegthumbs \
-    kdegraphics-thumbnailers \
-    kio-admin \
-    7zip
-    
-    systemctl enable sddm.service --root=/mnt
-}
-
-install_kde
-
+systemctl enable sddm.service --root=/mnt
 systemctl enable fstrim.timer --root=/mnt
 systemctl enable NetworkManager.service --root=/mnt
 
