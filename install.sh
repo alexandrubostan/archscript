@@ -25,7 +25,6 @@ ext4fs
 #ext4fs_luks
 
 pacstrap -K /mnt base linux linux-firmware vim sudo amd-ucode networkmanager
-genfstab -U /mnt >> /mnt/etc/fstab
 
 echo '%wheel      ALL=(ALL:ALL) NOPASSWD: ALL' | tee -a /mnt/etc/sudoers > /dev/null
 
@@ -48,12 +47,11 @@ EOF
 read -r -p "Enter hostname: " hostname
 echo "$hostname" | tee /mnt/etc/hostname > /dev/null
 
-ROOTUUID=$(blkid -s UUID -o value "$ROOT")
 AMDGPUOC=$(printf 'amdgpu.ppfeaturemask=0x%x\n' "$(($(cat /sys/module/amdgpu/parameters/ppfeaturemask) | 0x4000))")
 mkdir -p /mnt/etc/cmdline.d
-echo "root=UUID=$ROOTUUID rw" | tee /mnt/etc/cmdline.d/root.conf > /dev/null
-#echo "rd.luks.name=$ROOTUUID=root root=/dev/mapper/root rw" | tee /mnt/etc/cmdline.d/root.conf > /dev/null
+echo "rw" | tee /mnt/etc/cmdline.d/root.conf > /dev/null
 echo "$AMDGPUOC" | tee /mnt/etc/cmdline.d/amdgpuoc.conf > /dev/null
+echo '/dev/gpt-auto-root  /  ext4  defaults,noatime  0  1' | tee /mnt/etc/fstab > /dev/null
 
 tee /mnt/etc/mkinitcpio.d/linux.preset > /dev/null << EOF
 # mkinitcpio preset file for the 'linux' package
