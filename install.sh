@@ -89,6 +89,7 @@ systemd_boot
 #efistub
 
 curl -s https://raw.githubusercontent.com/alexandrubostan/archscript/refs/heads/main/kde.txt | xargs arch-chroot /mnt pacman -S --needed
+#arch-chroot /mnt pacman -S --needed plasma-desktop kwrited kwallet-pam sddm-kcm konsole dolphin dolphin-plugins
 
 systemctl enable sddm.service --root=/mnt
 systemctl enable fstrim.timer --root=/mnt
