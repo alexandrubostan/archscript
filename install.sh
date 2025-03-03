@@ -43,7 +43,7 @@ tee -a /mnt/etc/hosts > /dev/null << EOF
 EOF
 
 echo 'archlelz' | tee /mnt/etc/hostname > /dev/null
-echo "rw module_blacklist=iTCO_wdt,sp5100_tco nowatchdog" | tee /mnt/etc/kernel/cmdline > /dev/null
+echo "rw module_blacklist=iTCO_wdt,sp5100_tco nowatchdog amdgpu.ppfeaturemask=0xffffffff" | tee /mnt/etc/kernel/cmdline > /dev/null
 echo '/dev/gpt-auto-root  /  ext4  defaults,noatime  0  1' | tee /mnt/etc/fstab > /dev/null
 
 tee /mnt/etc/mkinitcpio.d/linux.preset > /dev/null << EOF
