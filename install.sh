@@ -70,20 +70,9 @@ COMPRESSION="zstd"
 COMPRESSION_OPTIONS=(-v -5 --long)
 EOF
 
-efistub () {
-    mkdir -p /mnt/efi/EFI/Linux
-    arch-chroot /mnt mkinitcpio -p linux
-    
-    efibootmgr -c -d "$DRIVE" -p "$EFIPART" -l 'EFI/Linux/arch-linux.efi' -u
-}
-
-systemd_boot () {
-    arch-chroot /mnt bootctl install
-    arch-chroot /mnt mkinitcpio -p linux
-}
-
-systemd_boot
-#efistub
+mkdir -p /mnt/efi/EFI/Linux
+arch-chroot /mnt mkinitcpio -p linux
+efibootmgr -c -d "$DRIVE" -p "$EFIPART" -l '\EFI\Linux\arch-linux.efi' -u
 
 arch-chroot /mnt pacman -S --needed plasma-desktop kwrited kwallet-pam sddm-kcm konsole dolphin dolphin-plugins \
                                     kscreen plasma-nm plasma-pa breeze-gtk kde-gtk-config spectacle xdg-desktop-portal-gtk xdg-desktop-portal-kde \
