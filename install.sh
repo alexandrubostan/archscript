@@ -24,7 +24,7 @@ ext4fs_luks () {
 ext4fs
 #ext4fs_luks
 
-pacstrap -K /mnt base linux linux-firmware nano sudo amd-ucode networkmanager
+pacstrap -K /mnt base linux linux-firmware vim sudo amd-ucode networkmanager
 
 sed -e '/en_US.UTF-8/s/^#*//' -i /mnt/etc/locale.gen
 sed -e '/ro_RO.UTF-8/s/^#*//' -i /mnt/etc/locale.gen
@@ -43,9 +43,7 @@ tee -a /mnt/etc/hosts > /dev/null << EOF
 EOF
 
 echo 'archlelz' | tee /mnt/etc/hostname > /dev/null
-
 echo "rw module_blacklist=iTCO_wdt,sp5100_tco nowatchdog" | tee /mnt/etc/kernel/cmdline > /dev/null
-
 echo '/dev/gpt-auto-root  /  ext4  defaults,noatime  0  1' | tee /mnt/etc/fstab > /dev/null
 
 tee /mnt/etc/mkinitcpio.d/linux.preset > /dev/null << EOF
