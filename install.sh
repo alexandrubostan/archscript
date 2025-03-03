@@ -44,8 +44,7 @@ EOF
 
 echo 'archlelz' | tee /mnt/etc/hostname > /dev/null
 
-AMDGPUOC=$(printf 'amdgpu.ppfeaturemask=0x%x\n' "$(($(cat /sys/module/amdgpu/parameters/ppfeaturemask) | 0x4000))")
-echo "rw $AMDGPUOC" | tee /mnt/etc/kernel/cmdline > /dev/null
+echo "rw module_blacklist=iTCO_wdt,sp5100_tco nowatchdog" | tee /mnt/etc/kernel/cmdline > /dev/null
 
 echo '/dev/gpt-auto-root  /  ext4  defaults,noatime  0  1' | tee /mnt/etc/fstab > /dev/null
 
