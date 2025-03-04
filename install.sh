@@ -74,9 +74,7 @@ mkdir -p /mnt/efi/EFI/Linux
 arch-chroot /mnt mkinitcpio -p linux
 efibootmgr -c -d "$DRIVE" -p "$EFIPART" -l '\EFI\Linux\arch-linux.efi' -u
 
-arch-chroot /mnt pacman -S --needed plasma-desktop kwrited kwallet-pam sddm-kcm konsole dolphin dolphin-plugins \
-                                    kscreen plasma-nm plasma-pa breeze-gtk kde-gtk-config spectacle xdg-desktop-portal-gtk xdg-desktop-portal-kde \
-                                    plasma-systemmonitor plasma-disks kinfocenter firefox
+arch-chroot /mnt pacman -S --needed plasma-meta konsole dolphin dolphin-plugins firefox
 
 systemctl enable sddm.service --root=/mnt
 systemctl enable fstrim.timer --root=/mnt
