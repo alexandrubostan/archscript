@@ -35,7 +35,6 @@ arch-chroot /mnt locale-gen
 
 echo 'LANG=en_US.UTF-8' | tee /mnt/etc/locale.conf > /dev/null
 echo 'LC_TIME=ro_RO.UTF-8' | tee -a /mnt/etc/locale.conf > /dev/null
-echo 'POWERDEVIL_NO_DDCUTIL=1' | tee -a /mnt/etc/environment > /dev/null
 
 tee -a /mnt/etc/hosts > /dev/null << EOF
 127.0.0.1        localhost
@@ -43,7 +42,7 @@ tee -a /mnt/etc/hosts > /dev/null << EOF
 EOF
 
 echo 'archlelz' | tee /mnt/etc/hostname > /dev/null
-echo "rw module_blacklist=iTCO_wdt,sp5100_tco nowatchdog amdgpu.ppfeaturemask=0xffffffff" | tee /mnt/etc/kernel/cmdline > /dev/null
+echo "rw amdgpu.ppfeaturemask=0xffffffff" | tee /mnt/etc/kernel/cmdline > /dev/null
 echo '/dev/gpt-auto-root  /  ext4  defaults,noatime  0  1' | tee /mnt/etc/fstab > /dev/null
 
 tee /mnt/etc/mkinitcpio.d/linux.preset > /dev/null << EOF
