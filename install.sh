@@ -69,11 +69,7 @@ COMPRESSION="zstd"
 COMPRESSION_OPTIONS=(-v -5 --long)
 EOF
 
-mkdir -p /mnt/efi/EFI/Linux
-arch-chroot /mnt mkinitcpio -p linux
-efibootmgr -c -d "$DRIVE" -p "$EFIPART" -l '\EFI\Linux\arch-linux.efi' -u
-
-arch-chroot /mnt pacman -S --needed plasma-meta konsole dolphin dolphin-plugins xdg-desktop-portal-gtk firefox
+arch-chroot /mnt pacman -S --needed plasma-meta konsole dolphin dolphin-plugins xdg-desktop-portal-gtk ark filelight
 
 systemctl enable sddm.service --root=/mnt
 systemctl enable fstrim.timer --root=/mnt
