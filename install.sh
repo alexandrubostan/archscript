@@ -24,7 +24,7 @@ ext4fs_luks () {
 ext4fs
 #ext4fs_luks
 
-pacstrap -K /mnt base linux linux-firmware vim sudo amd-ucode networkmanager
+pacstrap -K /mnt base linux linux-firmware vim sudo amd-ucode
 
 sed -e '/en_US.UTF-8/s/^#*//' -i /mnt/etc/locale.gen
 sed -e '/ro_RO.UTF-8/s/^#*//' -i /mnt/etc/locale.gen
@@ -69,7 +69,7 @@ COMPRESSION="zstd"
 COMPRESSION_OPTIONS=(-v -5 --long)
 EOF
 
-arch-chroot /mnt pacman -S --needed plasma-meta konsole dolphin dolphin-plugins xdg-desktop-portal-gtk ark filelight
+arch-chroot /mnt pacman -S --needed - < $(curl https://raw.githubusercontent.com/alexandrubostan/archscript/refs/heads/main/kde.txt)
 
 systemctl enable sddm.service --root=/mnt
 systemctl enable fstrim.timer --root=/mnt
